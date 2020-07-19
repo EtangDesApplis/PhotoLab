@@ -1,6 +1,6 @@
 # TO INSTALL DEPENDENCIES
 ```
-conda install django
+conda install -c anaconda django 
 ```
 
 # TO BUILD
