@@ -23,5 +23,5 @@ http://localhost:8080/
 ```
 # TO USE IN DOCKER MODE
 ```
-docker run -p 80:8080 -v /tmp:/tmp antoinenguyen31/photolab:20200719
+docker run -p 8080:8080 -v /tmp:/tmp antoinenguyen31/photolab:20200719
 ```
