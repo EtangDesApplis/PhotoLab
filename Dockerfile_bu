@@ -1,0 +1,28 @@
+#FROM python:3.8-alpine
+FROM centos:centos7
+LABEL maintainer="nguyen.ensma@gmail.com"
+RUN yum install wget curl vim bzip2 -y
+#Install django
+RUN curl -sS https://repo.anaconda.com/archive/Anaconda3-5.3.1-Linux-x86_64.sh -o /tmp/Anaconda3-5.3.1-Linux-x86_64.sh && \
+    /bin/sh /tmp/Anaconda3-5.3.1-Linux-x86_64.sh -b && \
+    export PATH="root/anaconda3/bin:${PATH}" && \
+    pip install Django==3.0.8 && \
+    rm -rf /tmp/*
+#RUN pip install Django==3.0.8 && \
+#    apk add --no-cache jpeg-dev zlib-dev && \
+#    apk add --no-cache --virtual .build-deps build-base linux-headers && \
+#    pip install Pillow==2.2.2
+#Add source
+COPY manage.py /app/manage.py
+COPY mySite /app/mySite
+COPY PhotoLab /app/PhotoLab
+COPY LICENSE /app/LICENSE
+#BUILD
+RUN cd /app && \
+    export PATH="root/anaconda3/bin:${PATH}" && \
+    python manage.py migrate && \
+    python manage.py makemigrations PhotoLab
+WORKDIR /app
+ENV PATH /root/anaconda3/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+EXPOSE 8080
+CMD ["python", "manage.py", "runserver", "0:8080"]
