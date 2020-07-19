@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container_outside">
+        <div class="card">
+            <div class="container">
+
+                <!--h2>upload</h2-->
+                <img src="{% static 'images/PhotoPrintingConcept.png'%}" alt="Image not found" height="200">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="file" name="image">
+                    <button type="submit">Process</button>
+                    <p>Image format:</p>
+                    <label class="container_radio">3.5cm x 4.5cm
+                        <input type="radio" checked="checked" value="3.5x4.5" name="imageFormat">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container_radio">3cm x 4cm
+                        <input type="radio" value="3x4" name="imageFormat">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container_radio">4cm x 6cm
+                        <input type="radio" value="4x6" name="imageFormat">
+                        <span class="checkmark"></span>
+                    </label>
+                    <p>Photo format:</p>
+                    <label class="container_radio">10cm x 13cm
+                        <input type="radio" checked="checked" value="10x13" name="photoFormat">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container_radio">10cm x 15cm
+                        <input type="radio" value="10x15" name="photoFormat">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container_radio">6cm x 9cm
+                        <input type="radio" value="6x9" name="photoFormat">
+                        <span class="checkmark"></span>
+                    </label>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+    {% if url %}
+    <div class="container_outside">
+        <div class="card">
+            <div class="container">
+                <a href="{{ url }}" download>
+                    <p>Download here</p>
+                </a>
+                <!--p>Uploaded file: <a href="{{ url }}">{{ url  }}</a></p-->
+                <br>
+                <img src="{{ url }}" alt="File not found" height="300"> 
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
