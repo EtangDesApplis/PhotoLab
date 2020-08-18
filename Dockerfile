@@ -12,7 +12,6 @@ COPY PhotoLab /app/PhotoLab
 COPY LICENSE /app/LICENSE
 #BUILD
 RUN cd /app && \
-    export PATH="/root/anaconda3/bin:${PATH}" && \
     python manage.py migrate && \
     python manage.py makemigrations PhotoLab
 WORKDIR /app
