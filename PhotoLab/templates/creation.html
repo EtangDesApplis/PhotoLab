@@ -4,9 +4,74 @@
     <div class="container_outside">
         <div class="card">
             <div class="container">
-                <h2>Photo creation session</h2>
-                <p>Comming soon ...</p>
+                <!--h2>Photo creation session</h2-->
+                <p style="text-align:center;"><img src="{% static 'images/PhotoCreatorConcept.png'%}" alt="Image not found" height="200"></p>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="file" name="image">
+                    <button type="submit">Upload</button>
+                </form>
+                <br>
+                {% if urlInputImg %}
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <label for="photoformat">Choose a format</label>
+                    <select name="photoformat" id="photoformat" onchange="myFunction()">
+                        <option value="{% static 'images/std_FR.png'%}">France</option>
+                        <option value="{% static 'images/std_VN.png'%}">Vietnam (4cmx6cm)</option>
+                        <option value="{% static 'images/std_VN3x4.png'%}">Vietnam (3cmx4cm)</option>
+                    </select>
+                    <br>
+                    <br>
+                    <input name="posX" id="posX" onchange="myFunction()" type="range" min="1" max="100" value="0" >
+                    <label for="posX">Left/Right</label>
+                    <br>
+                    <input name="posY" id="posY" onchange="myFunction()" type="range" min="1" max="100" value="0" >
+                    <label for="posY">Up/Down</label>
+                    <br>
+                    <input name="posZ" id="posZ" onchange="myFunction()" type="range" min="1" max="100" value="40" >
+                    <label for="posZ">In/Out</label>
+                    <br>
+                    <input type="hidden" id="imageSrc" name="imageSrc" value="{{ urlInputImg }}">
+                    <button type="submit">Create</button>
+                </form>
+                {% endif %}
+                <!--p><img id="target" src="{% static 'images/author.png'%}" alt="My photo" height="200" class="under" ></p-->
+            </div>
+        </div>
+        <!--div class="card"-->
+        <div>
+            <!--div class="container"-->
+            {% if urlInputImg %}
+            <div class="container">
+                <p><img style="position:relative; top:0px; left:0px; z-index:1" height="300" id="background" src="{{ urlInputImg }}" alt="File not found"></p>
+                <p><img style="position:relative; top:-320px; left:0px; z-index:2" height="50" id="target" src="{% static 'images/std_FR.png'%}"></p>
+                <script>
+                    function myFunction() {
+                        document.getElementById("target").style.left=document.getElementById("posX").value+"px";
+                        document.getElementById("target").style.top=(document.getElementById("posY").value-320)+"px";
+                        document.getElementById("target").height=document.getElementById("posZ").value*3;
+                        document.getElementById("target").src=document.getElementById("photoformat").value;
+                    }
+                </script>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% if urlOutImg %}
+    <div class="container_outside">
+        <div class="card">
+            <div class="container">
+                <a href="{{ urlOutImg }}" download>
+                    <p>Download here</p>
+                </a>
+                <!--p>Uploaded file: <a href="{{ url }}">{{ url  }}</a></p-->
+                <br>
+                <img src="{{ urlOutImg }}" alt="File not found" height="300"> 
             </div>
         </div>
     </div>
+    {% endif %}
 {% endblock %}
