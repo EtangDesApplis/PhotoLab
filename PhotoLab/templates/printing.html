@@ -6,7 +6,7 @@
             <div class="container">
 
                 <!--h2>upload</h2-->
-                <img src="{% static 'images/PhotoPrintingConcept.png'%}" alt="Image not found" height="200">
+                <p style="text-align:center;"><img src="{% static 'images/PhotoPrintingConcept.png'%}" alt="Image not found" height="200"></p>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
