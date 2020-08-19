@@ -15,7 +15,7 @@ python manage.py makemigrations PhotoLab
 ```
 python manage.py runserver 0:8080
 ```
-Appilcation is accessible via web browser:
+Appilcation is then accessible via web browser:
 
 [http://localhost:8080/](http://localhost:8080/)
 
